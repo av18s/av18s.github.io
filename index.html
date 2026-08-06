@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avneet Singh — GenAI & Agentic AI Engineer</title>
+<meta name="description" content="Software Developer & GenAI Engineer building production-grade Agentic AI, RAG systems, and full-stack platforms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090c10;
+    --bg-alt:#0d1219;
+    --surface:#131a23;
+    --surface-2:#1a232f;
+    --border:rgba(255,255,255,0.08);
+    --border-hi:rgba(255,255,255,0.16);
+    --text:#e9ecf2;
+    --text-dim:#8a93a3;
+    --text-faint:#5c6577;
+    --accent:#5eead4;
+    --accent-dim:#5eead422;
+    --accent2:#a78bfa;
+    --accent2-dim:#a78bfa22;
+    --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent-dim);color:var(--accent);}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.02em;}
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(9,12,16,0.72);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.scrolled{border-bottom-color:var(--border);}
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:68px;
+  }
+  .brand{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;
+    display:flex;align-items:center;gap:8px;
+  }
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);}
+  .navlinks{display:flex;gap:32px;font-size:0.9rem;color:var(--text-dim);}
+  .navlinks a{transition:color .2s ease;position:relative;}
+  .navlinks a:hover,.navlinks a:focus-visible{color:var(--text);}
+  .navlinks a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);
+    transition:width .25s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
+  .nav-actions{display:flex;align-items:center;gap:14px;}
+  .btn-nav-resume{padding:9px 16px;font-size:0.82rem;}
+  .btn-nav-resume svg{flex-shrink:0;}
+
+  .menu-toggle{
+    display:none;flex-direction:column;justify-content:center;gap:5px;
+    width:38px;height:38px;background:transparent;border:1px solid var(--border-hi);border-radius:8px;
+    cursor:pointer;
+  }
+  .menu-toggle span{
+    display:block;width:16px;height:1.5px;background:var(--text);margin:0 auto;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .menu-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .menu-toggle.open span:nth-child(2){opacity:0;}
+  .menu-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  @media(max-width:700px){
+    .menu-toggle{display:flex;}
+    .navlinks{
+      position:fixed;top:68px;left:0;right:0;
+      flex-direction:column;gap:0;
+      background:rgba(9,12,16,0.98);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+      max-height:0;overflow:hidden;
+      transition:max-height .35s ease;
+    }
+    .navlinks.open{max-height:400px;}
+    .navlinks a{
+      padding:16px 24px;border-bottom:1px solid var(--border);font-size:1rem;
+    }
+    .navlinks a::after{display:none;}
+    .btn-nav-resume{padding:8px 12px;font-size:0.76rem;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding-top:68px;
+    overflow:hidden;
+  }
+  #hero-canvas{
+    position:absolute;inset:0;z-index:0;
+    opacity:0;transition:opacity 1.4s ease;
+  }
+  #hero-canvas.ready{opacity:1;}
+  .hero-fade{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg, rgba(9,12,16,0.15) 0%, rgba(9,12,16,0.55) 65%, var(--bg) 100%);
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent);
+    border:1px solid var(--border-hi);background:var(--surface);
+    padding:6px 14px;border-radius:999px;margin-bottom:28px;
+    opacity:0;animation:riseIn .7s ease .1s forwards;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.04;
+    max-width:14ch;
+    opacity:0;animation:riseIn .8s ease .22s forwards;
+  }
+  .hero h1 .accent{color:var(--accent);}
+  .hero p.lede{
+    margin-top:24px;font-size:clamp(1.05rem,2vw,1.25rem);color:var(--text-dim);max-width:52ch;
+    opacity:0;animation:riseIn .8s ease .36s forwards;
+  }
+  .hero-cta{
+    margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;
+    opacity:0;animation:riseIn .8s ease .5s forwards;
+  }
+  @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 24px;border-radius:10px;font-size:0.92rem;font-weight:500;
+    border:1px solid transparent;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    font-family:inherit;
+  }
+  .btn-primary{background:var(--accent);color:#04211c;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px -8px var(--accent);}
+  .btn-ghost{border-color:var(--border-hi);color:var(--text);background:transparent;}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+
+  .scroll-hint{
+    position:absolute;bottom:36px;left:32px;z-index:2;
+    display:flex;align-items:center;gap:10px;color:var(--text-faint);
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;
+    opacity:0;animation:riseIn .8s ease .8s forwards;
+  }
+  .scroll-hint .line{width:28px;height:1px;background:var(--text-faint);position:relative;overflow:hidden;}
+  .scroll-hint .line::after{
+    content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--accent);
+    animation:slide 2.2s ease-in-out infinite;
+  }
+  @keyframes slide{0%{left:-100%;}50%{left:100%;}100%{left:100%;}}
+  @media(max-width:640px){.scroll-hint{display:none;}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:110px 0;position:relative;}
+  @media(max-width:640px){section{padding:72px 0;}}
+  .kicker{
+    font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent);
+    display:flex;align-items:center;gap:10px;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.06em;
+  }
+  .kicker::before{content:'';width:22px;height:1px;background:var(--accent);}
+  .section-title{font-size:clamp(1.7rem,3.4vw,2.3rem);margin-bottom:18px;}
+  .section-sub{color:var(--text-dim);max-width:60ch;font-size:1rem;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;grid-template-columns:1.3fr 1fr;gap:56px;margin-top:48px;align-items:start;
+  }
+  @media(max-width:800px){.about-grid{grid-template-columns:1fr;gap:36px;}}
+  .about-text p{color:var(--text-dim);margin-bottom:16px;font-size:1.02rem;}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  .stat{background:var(--surface);padding:24px 20px;}
+  .stat .num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--accent);}
+  .stat .label{color:var(--text-dim);font-size:0.82rem;margin-top:4px;}
+
+  /* ---------- EXPERIENCE (timeline) ---------- */
+  .timeline{margin-top:52px;position:relative;}
+  .timeline::before{
+    content:'';position:absolute;left:9px;top:6px;bottom:6px;width:1px;
+    background:linear-gradient(180deg, var(--accent) 0%, var(--border) 90%);
+  }
+  .tl-item{position:relative;padding-left:40px;margin-bottom:52px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-dot{
+    position:absolute;left:0;top:4px;width:19px;height:19px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .tl-dot::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .tl-item.current .tl-dot{box-shadow:0 0 0 4px var(--accent-dim);}
+  .tl-date{font-family:'JetBrains Mono',monospace;font-size:0.76rem;color:var(--accent);margin-bottom:6px;display:block;}
+  .tl-role{font-size:1.2rem;margin-bottom:2px;}
+  .tl-org{color:var(--text-dim);font-size:0.9rem;margin-bottom:16px;}
+  .tl-item ul{list-style:none;}
+  .tl-item li{
+    color:var(--text-dim);font-size:0.94rem;padding-left:18px;position:relative;margin-bottom:9px;
+  }
+  .tl-item li::before{content:'—';position:absolute;left:0;color:var(--text-faint);}
+  .tl-item li strong{color:var(--text);font-weight:500;}
+
+  /* ---------- SKILLS ---------- */
+  .skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px;}
+  @media(max-width:800px){.skill-groups{grid-template-columns:1fr;}}
+  .skill-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:24px 26px;
+  }
+  .skill-card h4{font-size:0.95rem;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .skill-card h4 .chip-dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);
+    background:var(--surface-2);border:1px solid var(--border);padding:5px 11px;border-radius:7px;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .chip:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- PROJECTS (tilt cards) ---------- */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px;}
+  @media(max-width:800px){.proj-grid{grid-template-columns:1fr;}}
+  .tilt-card{
+    background:linear-gradient(160deg, var(--surface) 0%, var(--bg-alt) 100%);
+    border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px;position:relative;overflow:hidden;
+    transform-style:preserve-3d;
+    transition:border-color .3s ease, box-shadow .3s ease;
+    will-change:transform;
+  }
+  .tilt-card:hover{border-color:var(--border-hi);box-shadow:0 20px 40px -20px rgba(0,0,0,0.6);}
+  .tilt-card .glow{
+    position:absolute;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+    pointer-events:none;opacity:0;transition:opacity .3s ease;
+    transform:translate(-50%,-50%);
+  }
+  .tilt-card:hover .glow{opacity:1;}
+  .tilt-card .tag{
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent2);
+    text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;display:block;
+  }
+  .tilt-card h3{font-size:1.15rem;margin-bottom:10px;}
+  .tilt-card p{color:var(--text-dim);font-size:0.92rem;}
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .edu-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px;}
+  @media(max-width:800px){.edu-cert-grid{grid-template-columns:1fr;}}
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;}
+  .info-card h4{font-size:0.95rem;color:var(--accent);margin-bottom:16px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.05em;}
+  .edu-entry .deg{font-size:1.05rem;margin-bottom:4px;}
+  .edu-entry .school{color:var(--text-dim);font-size:0.9rem;}
+  .edu-entry .gpa{color:var(--text-faint);font-size:0.82rem;margin-top:8px;font-family:'JetBrains Mono',monospace;}
+  .cert-list{list-style:none;}
+  .cert-list li{
+    color:var(--text-dim);font-size:0.9rem;padding:10px 0;border-bottom:1px solid var(--border);
+  }
+  .cert-list li:last-child{border-bottom:none;padding-bottom:0;}
+  .cert-list li:first-child{padding-top:0;}
+  .cert-list .cdate{color:var(--text-faint);font-size:0.78rem;font-family:'JetBrains Mono',monospace;display:block;margin-top:2px;}
+
+  /* ---------- RESUME PANEL ---------- */
+  .resume-panel{margin-top:48px;}
+  .resume-meta{
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    padding:20px 24px;background:var(--surface);
+    border:1px solid var(--border);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;
+  }
+  .resume-file{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;}
+  .resume-file .file-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent);
+    background:var(--accent-dim);border:1px solid var(--accent);border-radius:6px;
+    padding:2px 8px;margin-left:8px;
+  }
+  .resume-updated{color:var(--text-faint);font-size:0.78rem;margin-top:4px;}
+  .resume-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .resume-iframe{
+    height:720px;border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius);
+    background:#fff;overflow:hidden;
+  }
+  .resume-iframe iframe{width:100%;height:100%;border:0;display:block;}
+  @media(max-width:640px){
+    .resume-iframe{height:520px;}
+    .resume-meta{flex-direction:column;align-items:flex-start;}
+  }
+
+  /* ---------- RESUME MODAL ---------- */
+  .resume-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .resume-modal[hidden]{display:none;}
+  .resume-modal-backdrop{position:absolute;inset:0;background:rgba(5,8,12,0.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .resume-modal-box{
+    position:relative;width:min(900px,100%);height:min(92vh,920px);
+    display:flex;flex-direction:column;
+    background:var(--surface);border:1px solid var(--border-hi);border-radius:var(--radius);
+    overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,0.7);
+  }
+  .resume-modal-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border);}
+  .resume-modal-bar .mono{flex:1;color:var(--text-dim);font-size:0.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .resume-modal-close{
+    width:34px;height:34px;border-radius:8px;border:1px solid var(--border-hi);
+    background:transparent;color:var(--text);font-size:1.15rem;cursor:pointer;line-height:1;font-family:inherit;
+  }
+  .resume-modal-close:hover{border-color:var(--accent);color:var(--accent);}
+  .resume-modal-frame{flex:1;border:0;width:100%;background:#fff;}
+  @media(max-width:560px){
+    .resume-modal-bar .mono{display:none;}
+    .resume-modal-box{height:94vh;}
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact-section{text-align:center;padding-top:130px;}
+  .contact-section .section-title{font-size:clamp(2rem,5vw,3rem);max-width:16ch;margin:0 auto 18px;}
+  .contact-section .section-sub{margin:0 auto 40px;}
+  .contact-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  footer{
+    border-top:1px solid var(--border);margin-top:110px;padding:32px 0;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    color:var(--text-faint);font-size:0.82rem;
+  }
+  footer .foot-links{display:flex;gap:22px;}
+  footer a:hover{color:var(--accent);}
+
+  /* ---------- HIDDEN PDF RENDER HOLDER (scoped resume styles) ---------- */
+  #resume-render{position:fixed;left:-12000px;top:0;width:794px;background:#fff;z-index:-1;}
+  #resume-render *{margin:0;padding:0;box-sizing:border-box;}
+  #resume-render .resume-container{max-width:850px;margin:0 auto;background:#fff;padding:40px 48px;}
+  #resume-render .header{text-align:center;margin-bottom:22px;padding-bottom:14px;border-bottom:3px solid #2c3e50;}
+  #resume-render .header h1{font-size:30px;color:#2c3e50;margin-bottom:6px;font-family:inherit;letter-spacing:normal;}
+  #resume-render .contact-info{font-size:14px;color:#555;}
+  #resume-render h2{color:#2c3e50;font-size:19px;margin:18px 0 10px 0;padding-bottom:4px;border-bottom:2px solid #bdc3c7;font-family:inherit;letter-spacing:normal;}
+  #resume-render .summary{text-align:justify;margin-bottom:16px;font-size:14px;line-height:1.7;}
+  #resume-render .job-section{margin-bottom:16px;}
+  #resume-render .job-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+  #resume-render .job-title{font-weight:bold;font-size:15px;color:#2c3e50;}
+  #resume-render .company-name{font-size:13px;color:#666;margin-top:2px;}
+  #resume-render .date-range{font-size:12px;color:#666;font-style:italic;white-space:nowrap;text-align:right;}
+  #resume-render ul{margin:6px 0 0 24px;padding:0;}
+  #resume-render li{margin-bottom:5px;font-size:13.5px;line-height:1.6;}
+  #resume-render ul ul{margin-left:16px;}
+  #resume-render .skills-grid{font-size:13.5px;line-height:1.8;}
+  #resume-render .skill-category{margin-bottom:5px;}
+  #resume-render .skill-category strong{color:#2c3e50;}
+  #resume-render .resume-footnote{text-align:center;font-size:11px;color:#999;margin-top:16px;font-family:inherit;}
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <nav class="wrap">
+    <a href="#top" class="brand"><span class="dot"></span>Avneet Singh</a>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Highlights</a>
+      <a href="#edu">Education</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button type="button" onclick="downloadResumePDF()" class="btn btn-primary btn-nav-resume" title="Download PDF">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        Resume
+      </button>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navlinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-fade"></div>
+    <div class="wrap hero-inner">
+      <span class="eyebrow">● Available for GenAI / Agentic AI roles</span>
+      <h1>Building AI systems that <span class="accent">reason, retrieve,<br>and remember.</span></h1>
+      <p class="lede">I'm Avneet Singh — a Software Developer &amp; GenAI Engineer designing production-grade Agentic AI and RAG platforms, from vector retrieval to LLM Gateway infrastructure.</p>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">See what I've built</a>
+        <button type="button" onclick="downloadResumePDF()" class="btn btn-ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+          Download Resume
+        </button>
+      </div>
+    </div>
+    <div class="scroll-hint"><span class="line"></span>SCROLL</div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker">About</span>
+        <h2 class="section-title">From legacy systems to agentic pipelines</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm a Software Developer &amp; GenAI Engineer with <strong id="about-years">3+ years</strong> of experience across Generative AI, Agentic AI, RAG systems, and full-stack development. I've architected and shipped <strong>8+ production-grade GenAI use cases</strong> in BFSI, compliance, and enterprise automation — contributing to <strong>25+ enterprise AI solutions</strong> in total.</p>
+          <p>My work spans the full pipeline: LLM fine-tuning, prompt engineering, agentic workflows, and cloud-native deployment across OCI, Azure, and Intel Gaudi3. I've led client-facing PoCs in airgapped environments, built RBI-compliant financial chatbots processing 10,000+ regulatory queries a month, and mentored cross-functional teams delivering with 95%+ client satisfaction.</p>
+        </div>
+        <div class="stat-grid reveal">
+          <div class="stat"><div class="num" id="stat-years">3+</div><div class="label">Years in GenAI &amp; full-stack dev</div></div>
+          <div class="stat"><div class="num">8+</div><div class="label">Production GenAI use cases shipped</div></div>
+          <div class="stat"><div class="num">25+</div><div class="label">Enterprise AI solutions contributed to</div></div>
+          <div class="stat"><div class="num">10K+</div><div class="label">Regulatory queries handled monthly</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker">Experience</span>
+        <h2 class="section-title">Where the work happened</h2>
+        <p class="section-sub">Three roles, one company, steadily deeper into GenAI — from application modernization to owning full-stack agentic platforms.</p>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item current reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-date">06/2024 — Present</span>
+          <h3 class="tl-role">Software Developer — GenAI Solutions</h3>
+          <p class="tl-org">Translab Technologies Pvt. Ltd · Bangalore</p>
+          <ul>
+            <li>Architected and delivered <strong>8+ production-ready GenAI use cases</strong>, contributing to 25+ enterprise AI solutions across financial institutions and compliance automation.</li>
+            <li>Designed enterprise-scale <strong>RAG and Agentic AI applications</strong> using LangChain, LangFlow, Ollama, and vLLM for RBI compliance and Finacle automation.</li>
+            <li>Built <strong>LLM Gateway infrastructure with RBAC</strong> for secure, multi-tenant AI model access across the platform.</li>
+            <li>Owned full-stack delivery of the flagship GenAI platform — ReactJS frontend, FastAPI/Python backend.</li>
+            <li>Reduced LLM response times by <strong>40%</strong> via Redis caching and optimization pipelines; led a team of 5+ GenAI engineers.</li>
+            <li>Single-handedly executed a high-stakes PoC in a fully <strong>airgapped environment</strong> (DGIS, Delhi), demoing a Data Virtualization + GenAI BI platform.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-date">02/2024 — 06/2024</span>
+          <h3 class="tl-role">Software Developer — Application Modernization</h3>
+          <p class="tl-org">Translab Technologies Pvt. Ltd · Bangalore</p>
+          <ul>
+            <li>Transformed legacy monolithic Spring MVC applications into modular microservices, improving scalability by <strong>60%</strong> and cutting deployment time by 45%.</li>
+            <li>Built new application modules with ReactJS and Python FastAPI, integrating with CI/CD for zero-downtime deployments.</li>
+            <li>Refactored critical backend logic, improving performance by <strong>35%</strong> and cutting production incidents by 50%.</li>
+          </ul>
+        </div>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <span class="tl-date">04/2023 — 10/2023</span>
+          <h3 class="tl-role">Technical Intern</h3>
+          <p class="tl-org">Translab Technologies Pvt. Ltd · Bangalore</p>
+          <ul>
+            <li>Built interactive ReactJS components for an enterprise data management platform handling metadata, archival, and migration workflows.</li>
+            <li>Designed Apache Airflow DAGs for automated data lifecycle management, cutting manual operations by <strong>70%</strong> and operational costs by 40%.</li>
+            <li>Integrated Keycloak SSO and Kong API Gateway for secure, enterprise-grade authentication.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker">Skills</span>
+        <h2 class="section-title">The stack behind the systems</h2>
+      </div>
+      <div class="skill-groups">
+        <div class="skill-card reveal">
+          <h4><span class="chip-dot"></span>GenAI &amp; LLM</h4>
+          <div class="chips">
+            <span class="chip">LangChain</span><span class="chip">LangFlow</span><span class="chip">LangFuse</span>
+            <span class="chip">Ollama</span><span class="chip">vLLM</span><span class="chip">NVIDIA NeMo</span>
+            <span class="chip">RAG</span><span class="chip">Agentic AI</span><span class="chip">Prompt Engineering</span>
+            <span class="chip">LLM Fine-tuning</span><span class="chip">Hugging Face</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <h4><span class="chip-dot"></span>Vector Search &amp; Data</h4>
+          <div class="chips">
+            <span class="chip">Qdrant</span><span class="chip">Pinecone</span><span class="chip">Chroma</span>
+            <span class="chip">FAISS</span><span class="chip">Weaviate</span><span class="chip">PostgreSQL</span>
+            <span class="chip">MongoDB</span><span class="chip">Cassandra</span><span class="chip">Redis</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <h4><span class="chip-dot"></span>Full-Stack &amp; APIs</h4>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">ReactJS</span><span class="chip">FastAPI</span>
+            <span class="chip">Node.js</span><span class="chip">Java</span><span class="chip">Kong API Gateway</span>
+            <span class="chip">REST</span><span class="chip">GraphQL</span><span class="chip">Keycloak / OAuth2</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <h4><span class="chip-dot"></span>Cloud, DevOps &amp; Observability</h4>
+          <div class="chips">
+            <span class="chip">OCI</span><span class="chip">Azure</span><span class="chip">Intel Gaudi3</span>
+            <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Helm</span>
+            <span class="chip">GitLab CI/CD</span><span class="chip">Grafana</span><span class="chip">Prometheus</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker">Highlights</span>
+        <h2 class="section-title">Selected work</h2>
+        <p class="section-sub">A few deliverables that reflect the range — from regulated banking AI to airgapped enterprise PoCs.</p>
+      </div>
+      <div class="proj-grid">
+
+        <div class="tilt-card reveal">
+          <div class="glow"></div>
+          <span class="tag">Banking · Compliance</span>
+          <h3>RBI-compliant financial chatbot</h3>
+          <p>Production-grade banking AI application enabling real-time RBI guideline compliance, processing 10,000+ regulatory queries every month under aggressive client deadlines.</p>
+        </div>
+
+        <div class="tilt-card reveal">
+          <div class="glow"></div>
+          <span class="tag">Airgapped PoC</span>
+          <h3>DGIS Delhi — offline GenAI BI</h3>
+          <p>Single-handedly executed a high-stakes PoC in a fully airgapped environment, demoing a Data Virtualization platform integrated with GenAI-powered business intelligence tools.</p>
+        </div>
+
+        <div class="tilt-card reveal">
+          <div class="glow"></div>
+          <span class="tag">Infrastructure</span>
+          <h3>LLM Gateway with RBAC</h3>
+          <p>Designed and deployed multi-tenant LLM Gateway infrastructure with role-based access control, meeting enterprise security and data-governance standards.</p>
+        </div>
+
+        <div class="tilt-card reveal">
+          <div class="glow"></div>
+          <span class="tag">Partner Collaboration</span>
+          <h3>Dell PowerEdge RAG deployment</h3>
+          <p>Collaborated with Dell Technologies to deploy an enterprise RAG application using the NVIDIA NeMo framework, fine-tuning LLMs on domain-specific datasets.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="edu">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker">Background</span>
+        <h2 class="section-title">Education &amp; certifications</h2>
+      </div>
+      <div class="edu-cert-grid">
+        <div class="info-card reveal edu-entry">
+          <h4>Education</h4>
+          <div class="deg">Bachelor of Engineering — Computer Science</div>
+          <div class="school">MBS College of Engineering and Technology</div>
+          <div class="gpa">GPA 8.4 / 10 · Graduated 06/2023</div>
+        </div>
+        <div class="info-card reveal">
+          <h4>Certifications</h4>
+          <ul class="cert-list">
+            <li>Apache Cassandra 3 Administrator Associate<span class="cdate">06/2023</span></li>
+            <li>Apache Cassandra 3 Developer Associate<span class="cdate">05/2023</span></li>
+            <li>React Development Certification — Internshala<span class="cdate">06/2023</span></li>
+            <li>The Joy of Computing Using Python — NPTEL<span class="cdate">04/2022</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker">Resume</span>
+        <h2 class="section-title">Always up to date</h2>
+        <p class="section-sub">Your experience is computed automatically from the current month — every preview and download reflects today's date, no manual editing required.</p>
+      </div>
+      <div class="resume-panel reveal">
+        <div class="resume-meta">
+          <div>
+            <div class="resume-file">Avneet_Singh_Resume.pdf<span class="file-badge" id="resume-badge">Auto-generated</span></div>
+            <div class="resume-updated mono" id="resume-updated">Checking date…</div>
+          </div>
+          <div class="resume-actions">
+            <button type="button" onclick="openResumePreview()" class="btn btn-ghost">Preview</button>
+            <button type="button" onclick="downloadResumePDF()" class="btn btn-primary">Download PDF</button>
+          </div>
+        </div>
+        <div class="resume-iframe">
+          <iframe id="resume-preview-iframe" title="Resume preview"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="kicker" style="justify-content:center;">Contact</span>
+        <h2 class="section-title">Let's build something that thinks.</h2>
+        <p class="section-sub">Open to GenAI, Agentic AI, and full-stack engineering roles — reach out directly.</p>
+        <div class="contact-cta">
+          <a href="mailto:singhavneet771@gmail.com" class="btn btn-primary">singhavneet771@gmail.com</a>
+          <a href="https://www.linkedin.com/in/avneet-singh-18s27" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+          <button type="button" onclick="downloadResumePDF()" class="btn btn-ghost">Download Resume</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© <span id="foot-year">2026</span> Avneet Singh — Bangalore, India</span>
+  <div class="foot-links">
+    <a href="https://github.com/av18s" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/avneet-singh-18s27" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:singhavneet771@gmail.com">Email</a>
+  </div>
+</footer>
+
+<div class="resume-modal" id="resume-modal" hidden aria-hidden="true">
+  <div class="resume-modal-backdrop" onclick="closeResumePreview()"></div>
+  <div class="resume-modal-box" role="dialog" aria-modal="true" aria-label="Resume preview">
+    <div class="resume-modal-bar">
+      <span class="mono">Resume Preview — Avneet_Singh_Resume.pdf</span>
+      <button type="button" onclick="downloadResumePDF()" class="btn btn-primary">Download PDF</button>
+      <button type="button" class="resume-modal-close" onclick="closeResumePreview()" aria-label="Close preview">×</button>
+    </div>
+    <iframe class="resume-modal-frame" id="resume-modal-frame" title="Resume preview (large)"></iframe>
+  </div>
+</div>
+
+<div id="resume-render" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  /* ==================================================================
+     RESUME ENGINE — auto-updating experience, preview & PDF download
+     ================================================================== */
+
+  const CAREER_START = { y: 2023, m: 3 };      // April 2023 (first role: Technical Intern)
+  const CURRENT_ROLE = { y: 2024, m: 5 };      // June 2024 (Software Developer — GenAI Solutions)
+
+  function expInfo() {
+    const now = new Date();
+    let totalMonths = (now.getFullYear() - CAREER_START.y) * 12 + (now.getMonth() - CAREER_START.m);
+    if (totalMonths < 0) totalMonths = 0;
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    return {
+      years,
+      months,
+      yearsDecimal: (totalMonths / 12).toFixed(1),
+      label: `${years} Years${months ? ` ${months} Months` : ''}`
+    };
+  }
+
+  function durLabel(startY, startM) {
+    const now = new Date();
+    let m = (now.getFullYear() - startY) * 12 + (now.getMonth() - startM);
+    if (m < 0) m = 0;
+    const y = Math.floor(m / 12), mm = m % 12;
+    const parts = [];
+    if (y) parts.push(`${y} Yr${y > 1 ? 's' : ''}`);
+    if (mm) parts.push(`${mm} Mo${mm > 1 ? 's' : ''}`);
+    return parts.join(' ') || '0 Mos';
+  }
+
+  const RESUME_CSS = `
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#333;background:#f5f5f5;padding:24px;}
+.resume-container{max-width:850px;margin:0 auto;background:#fff;padding:40px 48px;box-shadow:0 2px 10px rgba(0,0,0,0.12);}
+.header{text-align:center;margin-bottom:22px;padding-bottom:14px;border-bottom:3px solid #2c3e50;}
+.header h1{font-size:30px;color:#2c3e50;margin-bottom:6px;}
+.contact-info{font-size:14px;color:#555;}
+h2{color:#2c3e50;font-size:19px;margin:18px 0 10px 0;padding-bottom:4px;border-bottom:2px solid #bdc3c7;}
+.summary{text-align:justify;margin-bottom:16px;font-size:14px;line-height:1.7;}
+.job-section{margin-bottom:16px;}
+.job-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.job-title{font-weight:bold;font-size:15px;color:#2c3e50;}
+.company-name{font-size:13px;color:#666;margin-top:2px;}
+.date-range{font-size:12px;color:#666;font-style:italic;white-space:nowrap;text-align:right;}
+ul{margin:6px 0 0 24px;padding:0;}
+li{margin-bottom:5px;font-size:13.5px;line-height:1.6;}
+ul ul{margin-left:16px;}
+.skills-grid{font-size:13.5px;line-height:1.8;}
+.skill-category{margin-bottom:5px;}
+.skill-category strong{color:#2c3e50;}
+.resume-footnote{text-align:center;font-size:11px;color:#999;margin-top:16px;}
+`;
+
+  function buildResumeHTML() {
+    const info = expInfo();
+    const now = new Date();
+    const stamp = `${now.toLocaleString('en-US', { month: 'long' })} ${now.getFullYear()}`;
+
+    return `
+<div class="resume-container">
+  <div class="header">
+    <h1>Avneet Singh</h1>
+    <div class="contact-info">+91-9149705107 | singhavneet771@gmail.com | Bangalore, KA</div>
+  </div>
+
+  <h2>Summary</h2>
+  <div class="summary">
+    Innovative Software Developer &amp; GenAI Engineer with ${info.years}+ years of expertise in Generative AI, Agentic AI, RAG systems, and Full-Stack Development. Proven track record of delivering 8+ production-grade GenAI use cases across BFSI, compliance, and enterprise automation domains. Skilled at architecting and deploying end-to-end AI/ML pipelines from research to production, with hands-on experience in LLM fine-tuning, prompt engineering, and agentic workflows.
+    <br><br>
+    Technical proficiency spans Python, FastAPI, ReactJS, LangChain, LangFlow, LangFuse, Ollama, vLLM, and advanced vector databases (Qdrant, Pinecone, Chroma). Expert in building cloud-native, scalable solutions across OCI, Azure, Intel Gaudi3, and hybrid infrastructures using Docker, Kubernetes, Helm, and CI/CD pipelines. Strong foundation in MLflow, NLP, Computer Vision, RBAC implementation, LLM Gateway integration, and observability frameworks.
+    <br><br>
+    Recognized for client-facing leadership, successfully executing airgapped PoCs (DGIS Delhi), delivering RBI-compliant financial chatbots, and contributing to 25+ enterprise GenAI use cases. Adept at transforming legacy systems into modern AI-driven solutions while ensuring security, scalability, and compliance. Known for cross-functional team mentorship, pre-sales solution architecture, and consistent delivery of high-impact AI/ML products.
+  </div>
+
+  <h2>Experience - Total Experience (${info.label})</h2>
+
+  <div class="job-section">
+    <div class="job-header">
+      <div>
+        <div class="job-title">Software Developer – GenAI Solutions</div>
+        <div class="company-name">Translab Technologies Pvt. Ltd | Bangalore</div>
+      </div>
+      <div class="date-range">06/2024 - Present · ${durLabel(CURRENT_ROLE.y, CURRENT_ROLE.m)}</div>
+    </div>
+    <ul>
+      <li>Architected and delivered 8+ production-ready GenAI use cases, contributing to the team's delivery of 25+ enterprise AI solutions across financial institutions, compliance automation, and business intelligence platforms.</li>
+      <li>Designed and deployed enterprise-scale Retrieval-Augmented Generation (RAG) and Agentic AI applications using LangChain, LangFlow, Ollama, vLLM, and custom prompt-chaining pipelines for mission-critical problems including RBI compliance and Finacle automation.</li>
+      <li>Implemented advanced vector database solutions using Qdrant, Pinecone, Chroma, and FAISS for semantic search, knowledge retrieval, and context-aware AI responses across multiple client deployments.</li>
+      <li>Developed and integrated LLM observability frameworks using LangFuse, implementing comprehensive monitoring, tracing, and debugging for production LLM applications to optimize performance and cost efficiency.</li>
+      <li>Built and deployed LLM Gateway infrastructure with RBAC (Role-Based Access Control) for secure, multi-tenant AI model access, ensuring compliance with enterprise security standards and data governance policies.</li>
+      <li>Owned full-stack development of flagship GenAI platform with ReactJS frontend and FastAPI/Python backend, ensuring seamless end-to-end delivery of client-facing AI solutions with robust authentication and authorization.</li>
+      <li>Architected hybrid cloud and on-prem deployments, running LLM models and AI applications across OCI, Azure, Intel Gaudi3, Dell bare-metal servers, and Nutanix environments for optimal cost-performance tradeoffs.</li>
+      <li>Deployed complex Kubernetes RC2 infrastructure stacks using Helm charts, orchestrating Keycloak (AuthN/AuthZ), Kong API Gateway, PostgreSQL, vector databases, LLM inference services, REST APIs, and React frontends.</li>
+      <li>Executed high-impact client deliverables including:
+        <ul>
+          <li>Developed and demoed GenAI PoCs for conversational chatbots, financial advisory assistants, compliance automation bots, and intelligent document processing systems.</li>
+          <li>Delivered production-grade banking AI application enabling real-time RBI guideline compliance within aggressive client deadlines, processing 10,000+ regulatory queries monthly.</li>
+          <li>Collaborated with Dell Technologies to deploy enterprise RAG application on Dell PowerEdge servers using NVIDIA NeMo framework, fine-tuning LLMs on domain-specific datasets and integrating optimized inference pipelines.</li>
+          <li>Conducted comprehensive GenAI benchmarking across Dell, Azure Cloud, and Intel Gaudi3 accelerators, evaluating latency, throughput, and cost metrics to optimize infrastructure decisions.</li>
+        </ul>
+      </li>
+      <li>Strengthened DevOps and engineering workflows by:
+        <ul>
+          <li>Establishing CI/CD pipelines with GitLab on OCI infrastructure, automating model deployment, testing, and rollback procedures for continuous delivery of AI/ML products.</li>
+          <li>Implementing Grafana + Prometheus observability stack for real-time monitoring of LLM inference latency, GPU utilization, token consumption, and API performance metrics.</li>
+          <li>Deploying Redis caching layer and optimization pipelines to reduce LLM response times by 40% and improve concurrent user handling capacity.</li>
+        </ul>
+      </li>
+      <li>Led and mentored a cross-functional team of 5+ GenAI engineers, driving agile development sprints and ensuring successful delivery of multiple PoCs and production systems with 95%+ client satisfaction rates.</li>
+      <li>Expanded AI/ML technical expertise beyond GenAI by contributing to data-centric ML product development:
+        <ul>
+          <li>Developed end-to-end frontend and backend features, leveraging MLflow for experiment tracking, model versioning, and deployment orchestration across development and production environments.</li>
+          <li>Implemented NLP pipelines (named entity recognition, sentiment analysis, text classification) and Computer Vision models (object detection, image classification) using PyTorch, TensorFlow, and scikit-learn.</li>
+        </ul>
+      </li>
+      <li>Single-handedly executed high-stakes PoC in fully airgapped environment (DGIS, Delhi):
+        <ul>
+          <li>Delivered offline demonstration featuring Data Virtualization platform integrated with GenAI-powered Business Intelligence tools, showcasing end-to-end data pipeline orchestration and AI-driven analytics in restricted security environment.</li>
+        </ul>
+      </li>
+      <li>Supported pre-sales and client engagement activities by creating technical solution architectures (draw.io diagrams), responding to RFP requirements, drafting scope documents, and delivering client demos to align AI/ML capabilities with business objectives.</li>
+    </ul>
+  </div>
+
+  <div class="job-section">
+    <div class="job-header">
+      <div>
+        <div class="job-title">Software Developer - Application Modernization</div>
+        <div class="company-name">Translab Technologies Pvt. Ltd | Bangalore</div>
+      </div>
+      <div class="date-range">02/2024 - 06/2024</div>
+    </div>
+    <ul>
+      <li>Transformed legacy monolithic Spring MVC applications into modular, microservices-oriented architecture, improving system scalability by 60%, reducing deployment time by 45%, and enhancing maintainability for enterprise clients.</li>
+      <li>Designed and implemented new application modules using ReactJS (frontend) and Python FastAPI (backend), collaborating with DevOps teams to ensure seamless CI/CD integration and zero-downtime deployments.</li>
+      <li>Debugged, optimized, and refactored critical backend logic, enhancing system performance by 35%, improving API response times, and reducing production incidents by 50% through comprehensive code reviews and testing.</li>
+    </ul>
+  </div>
+
+  <div class="job-section">
+    <div class="job-header">
+      <div>
+        <div class="job-title">Technical Intern</div>
+        <div class="company-name">Translab Technologies Pvt. Ltd | Bangalore</div>
+      </div>
+      <div class="date-range">04/2023 - 10/2023</div>
+    </div>
+    <ul>
+      <li>Developed interactive ReactJS frontend components for enterprise data management platform, providing intuitive user interfaces for metadata management, data archival, migration, and purging workflows with drag-and-drop functionality.</li>
+      <li>Architected Python-based backend microservices to handle complex metadata processing, data validation, and orchestration of ETL pipelines across heterogeneous database systems (PostgreSQL, Cassandra, MongoDB).</li>
+      <li>Integrated Keycloak for enterprise SSO (Single Sign-On) and OAuth 2.0 authentication, and configured Konga API Gateway for secure API management, rate limiting, and access control policies.</li>
+      <li>Designed and implemented Apache Airflow DAGs (Directed Acyclic Graphs) for automated data lifecycle management, scheduling migration, archival, and purging tasks, reducing manual operations by 70% and operational costs by 40%.</li>
+      <li>Delivered production-ready automation system that streamlined data archival processes, improved data governance compliance, and established foundation for company's broader enterprise Data Product platform serving 50+ clients.</li>
+    </ul>
+  </div>
+
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-category"><strong>GenAI &amp; LLM Technologies:</strong> Generative AI, Agentic AI, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), Prompt Engineering, LLM Fine-tuning, Model Optimization, LangChain, LangFlow, LangFuse, Ollama, vLLM, NVIDIA NeMo, Hugging Face Transformers</div>
+    <div class="skill-category"><strong>Programming Languages:</strong> Python, Java, JavaScript, Node.js, SQL</div>
+    <div class="skill-category"><strong>Web Frameworks &amp; Libraries:</strong> ReactJS, FastAPI, Flask, Express.js, Spring MVC, Redux, Tailwind CSS</div>
+    <div class="skill-category"><strong>AI/ML &amp; Data Science:</strong> Natural Language Processing (NLP), Computer Vision, MLflow, Jupyter Notebooks, PyTorch, TensorFlow, scikit-learn, Pandas, NumPy, Model Deployment, A/B Testing</div>
+    <div class="skill-category"><strong>Vector Databases &amp; Search:</strong> Qdrant, Pinecone, Chroma, FAISS, Weaviate, Semantic Search, Embedding Models</div>
+    <div class="skill-category"><strong>Cloud &amp; Infrastructure:</strong> Oracle Cloud Infrastructure (OCI), Microsoft Azure, Amazon Web Services (AWS), Intel Gaudi3, Dell PowerEdge, Nutanix, Hybrid Cloud Architecture</div>
+    <div class="skill-category"><strong>DevOps &amp; Orchestration:</strong> Docker, Kubernetes, Helm Charts, GitLab CI/CD, Jenkins, Terraform, Ansible, Infrastructure as Code (IaC)</div>
+    <div class="skill-category"><strong>Databases:</strong> PostgreSQL, MySQL, MongoDB, Apache Cassandra, Redis (Caching), Relational &amp; NoSQL Database Design</div>
+    <div class="skill-category"><strong>Authentication &amp; Security:</strong> Keycloak, OAuth 2.0, RBAC (Role-Based Access Control), SSO (Single Sign-On), JWT, API Security, Data Encryption</div>
+    <div class="skill-category"><strong>API &amp; Gateway Management:</strong> Kong API Gateway, Konga, LLM Gateway, REST API Design, GraphQL, Microservices Architecture</div>
+    <div class="skill-category"><strong>Observability &amp; Monitoring:</strong> LangFuse (LLM Observability), Grafana, Prometheus, ELK Stack, Application Performance Monitoring (APM), Distributed Tracing</div>
+    <div class="skill-category"><strong>Data Engineering:</strong> Apache Airflow, Apache Trino, ETL Pipelines, Data Virtualization, Data Migration, Metadata Management</div>
+    <div class="skill-category"><strong>Development Tools:</strong> Git, GitHub, GitLab, VS Code, IntelliJ IDEA, Postman, Draw.io, Agile/Scrum Methodologies</div>
+    <div class="skill-category"><strong>Operating Systems:</strong> Linux (Ubuntu, CentOS, RHEL), Windows Server, Unix Shell Scripting, Bash</div>
+  </div>
+
+  <h2>Education</h2>
+  <div class="job-section">
+    <div class="job-header">
+      <div>
+        <div class="job-title">Bachelor of Engineering (BE) in Computer Science</div>
+        <div class="company-name">MBS College Of Engineering And Technology | GPA: 8.4/10</div>
+      </div>
+      <div class="date-range">06/2023</div>
+    </div>
+  </div>
+
+  <h2>Languages</h2>
+  <div class="skills-grid">English (Professional Working Proficiency), Hindi (Native/Bilingual Proficiency)</div>
+
+  <h2>Certifications</h2>
+  <div class="skills-grid">
+    Apache Cassandra 3 Administrator Associate, 06/2023 | Apache Cassandra 3 Developer Associate, 05/2023 | React Development Certification - Internshala, 06/2023 | The Joy of Computing Using Python - NPTEL, 04/2022
+  </div>
+
+  <div class="resume-footnote">Resume auto-generated on ${stamp} · Total Experience ${info.label} (started ${String(CAREER_START.m + 1).padStart(2, '0')}/${CAREER_START.y})</div>
+</div>`;
+  }
+
+  function resumeDoc() {
+    return `<style>${RESUME_CSS}</style>${buildResumeHTML()}`;
+  }
+
+  function openResumePreview() {
+    const modal = document.getElementById('resume-modal');
+    document.getElementById('resume-modal-frame').srcdoc = resumeDoc();
+    modal.hidden = false;
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('resume-modal-frame').focus();
+  }
+
+  function closeResumePreview() {
+    const modal = document.getElementById('resume-modal');
+    modal.hidden = true;
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  async function downloadResumePDF() {
+    if (!window.html2canvas || !window.jspdf) {
+      alert('PDF libraries are still loading. If you are offline, open the Preview and use your browser\u2019s \u201CSave as PDF\u201D print option instead.');
+      openResumePreview();
+      return;
+    }
+
+    const holder = document.getElementById('resume-render');
+    holder.innerHTML = buildResumeHTML();
+    holder.style.display = 'block';
+    void holder.offsetHeight;
+
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready.catch(() => {});
+      }
+
+      const canvas = await html2canvas(holder, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        windowWidth: 794
+      });
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = 210, pageHeight = 297;
+      const margin = 12;
+      const imgWidth = pageWidth - margin * 2;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const contentHeight = pageHeight - margin * 2;
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      let heightLeft = imgHeight;
+      let position = margin;
+
+      pdf.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+      heightLeft -= contentHeight;
+
+      while (heightLeft > 0) {
+        position -= contentHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', margin, position, imgWidth, imgHeight);
+        heightLeft -= contentHeight;
+      }
+
+      const now = new Date();
+      const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      pdf.save(`Avneet_Singh_Resume_${ym}.pdf`);
+    } finally {
+      holder.style.display = 'none';
+      holder.innerHTML = '';
+    }
+  }
+
+  function initResumeEngine() {
+    const info = expInfo();
+    const now = new Date();
+    const stamp = `${now.toLocaleString('en-US', { month: 'long' })} ${now.getFullYear()}`;
+
+    const aboutYears = document.getElementById('about-years');
+    if (aboutYears) aboutYears.textContent = `${info.years}+ years`;
+
+    const statYears = document.getElementById('stat-years');
+    if (statYears) statYears.textContent = info.yearsDecimal;
+
+    const updated = document.getElementById('resume-updated');
+    if (updated) updated.textContent = `Updated ${stamp} · Experience ${info.label} · auto-computed on every download`;
+
+    const footYear = document.getElementById('foot-year');
+    if (footYear) footYear.textContent = String(now.getFullYear());
+
+    const preview = document.getElementById('resume-preview-iframe');
+    if (preview) preview.srcdoc = resumeDoc();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeResumePreview();
+  });
+
+  document.addEventListener('DOMContentLoaded', initResumeEngine);
+  if (document.readyState !== 'loading') initResumeEngine();
+
+  /* ==================================================================
+     PORTFOLIO SCRIPT (header, menu, reveal, tilt, hero scene)
+     ================================================================== */
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinksEl = document.getElementById('navlinks');
+
+  function closeMenu() {
+    menuToggle.classList.remove('open');
+    navLinksEl.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  }
+  function toggleMenu() {
+    const isOpen = navLinksEl.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  }
+  menuToggle.addEventListener('click', toggleMenu);
+
+  navLinksEl.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navLinksEl.classList.contains('open')) return;
+    if (!navLinksEl.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
+  });
+
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', () => { if (window.innerWidth > 700) closeMenu(); });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  const tiltCards = document.querySelectorAll('.tilt-card');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) {
+    tiltCards.forEach(card => {
+      const glow = card.querySelector('.glow');
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        const cx = r.width / 2, cy = r.height / 2;
+        const rotX = ((y - cy) / cy) * -6;
+        const rotY = ((x - cx) / cx) * 6;
+        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
+        if (glow) { glow.style.left = x + 'px'; glow.style.top = y + 'px'; }
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+  }
+
+  (function heroScene(){
+    const canvas = document.getElementById('hero-canvas');
+    if (!window.THREE) return;
+
+    const heroEl = document.querySelector('.hero');
+    let width = heroEl.clientWidth, height = heroEl.clientHeight;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+    camera.position.z = 60;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+
+    const NODE_COUNT = prefersReducedMotion ? 0 : (width < 640 ? 55 : 90);
+    const RADIUS = 44;
+    const nodes = [];
+    const nodeGeo = new THREE.SphereGeometry(0.55, 8, 8);
+    const nodeMatA = new THREE.MeshBasicMaterial({ color: 0x5eead4, transparent: true, opacity: 0.9 });
+    const nodeMatB = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.75 });
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    for (let i = 0; i < NODE_COUNT; i++) {
+      const mat = i % 4 === 0 ? nodeMatB : nodeMatA;
+      const mesh = new THREE.Mesh(nodeGeo, mat);
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() * 2) - 1);
+      const r = RADIUS * (0.55 + Math.random() * 0.45);
+      mesh.position.set(
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.sin(phi) * Math.sin(theta) * 0.6,
+        r * Math.cos(phi)
+      );
+      mesh.userData.basePos = mesh.position.clone();
+      mesh.userData.phase = Math.random() * Math.PI * 2;
+      group.add(mesh);
+      nodes.push(mesh);
+    }
+
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x2c3a45, transparent: true, opacity: 0.5 });
+    let lineSegments = null;
+
+    function rebuildLines() {
+      if (lineSegments) { group.remove(lineSegments); lineSegments.geometry.dispose(); }
+      const positions = [];
+      const MAX_DIST = 16;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const d = nodes[i].position.distanceTo(nodes[j].position);
+          if (d < MAX_DIST) {
+            positions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
+            positions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
+          }
+        }
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      lineSegments = new THREE.LineSegments(geo, lineMat);
+      group.add(lineSegments);
+    }
+    rebuildLines();
+
+    let targetRotX = 0, targetRotY = 0;
+    window.addEventListener('mousemove', (e) => {
+      targetRotY = ((e.clientX / window.innerWidth) - 0.5) * 0.5;
+      targetRotX = ((e.clientY / window.innerHeight) - 0.5) * 0.3;
+    }, { passive: true });
+
+    let frame = 0;
+    let raf;
+    function animate() {
+      frame++;
+      group.rotation.y += 0.0009;
+      group.rotation.y += (targetRotY - group.rotation.y) * 0.02;
+      group.rotation.x += (targetRotX - group.rotation.x) * 0.02;
+
+      if (!prefersReducedMotion) {
+        nodes.forEach(n => {
+          const t = frame * 0.01 + n.userData.phase;
+          n.position.x = n.userData.basePos.x + Math.sin(t) * 0.6;
+          n.position.y = n.userData.basePos.y + Math.cos(t * 0.8) * 0.6;
+        });
+        if (frame % 26 === 0) rebuildLines();
+      }
+
+      renderer.render(scene, camera);
+      raf = requestAnimationFrame(animate);
+    }
+    animate();
+    canvas.classList.add('ready');
+
+    function onResize() {
+      width = heroEl.clientWidth; height = heroEl.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onResize);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else animate();
+    });
+  })();
+</script>
+
+</body>
+</html>
