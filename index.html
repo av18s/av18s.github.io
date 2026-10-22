@@ -999,6 +999,8 @@ ul ul{margin-left:16px;}
 
   function initResumeEngine() {
     const info = expInfo();
+    const now = new Date();
+    const stamp = `${now.toLocaleString('en-US', { month: 'long' })} ${now.getFullYear()}`;
     const aboutYears = document.getElementById('about-years');
     if (aboutYears) aboutYears.textContent = `${info.years}+ years`;
 
